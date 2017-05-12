@@ -207,7 +207,7 @@
 	"string"
 	"iostream"
 
-1494625931 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
+1494631189 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
 	"graphics.hpp"
 	"widgets.hpp"
 	<vector>
@@ -217,6 +217,7 @@
 	<sstream>
 	<fstream>
 	"field_button.hpp"
+	"game_window.hpp"
 
 1492705200 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\menu.hpp
 	"graphics.hpp"
@@ -246,4 +247,15 @@
 	"graphics.hpp"
 	"widgets.hpp"
 	"button.hpp"
+
+1494631374 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	<vector>
+	<iostream>
+	<string>
+	<strstream>
+	<sstream>
+	<fstream>
+	"field_button.hpp"
 
