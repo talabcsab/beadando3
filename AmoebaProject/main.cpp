@@ -12,8 +12,9 @@ using namespace genv;
 
 int user_id=1;
 int winner_user=0;
+bool full=false;
 event ev;
-Button* cleaner_button = new Button (670, 130, 60, 40, "CLEAN!");
+Button* cleaner_button = new Button (685, 130, 70, 30, "CLEAN!");
 
 bool winning(vector<vector<FieldButton*>> &board)
 {
@@ -128,7 +129,7 @@ bool winning(vector<vector<FieldButton*>> &board)
 
 void board_maker(vector<vector<FieldButton*>> &all)
 {
-    int board_size=20;
+    int board_size=3;
     all.clear();
 
     for( int j=0; j<board_size; j++)
@@ -153,11 +154,31 @@ void cleaner(vector<vector<FieldButton*>> &all)
         winner_user=0;
         user_id=1;
         board_maker(all);
+        full=false;
 
     }
 }
 
 
+
+
+
+bool is_full(vector<vector<FieldButton*>> &all)
+{
+    for(int i=0; i<all.size(); i++)
+    {
+        for(int j=0; j<all[i].size(); j++)
+        {
+            if(all[i][j]->get_user_id()==0)
+            {
+                return false;
+            }
+        }
+
+    }
+    return true;
+
+}
 void data_print()
 {
     gout << move_to(630, 80) << color(255,0,0) << box(180, 50);
@@ -169,19 +190,22 @@ void data_print()
         player_id_str="";
         win_id << winner_user;
         player_id_str = win_id.str();
-        gout << text(player_id_str) <<text(". player WIN!") <<refresh;
+        gout << text(player_id_str) <<text(". player WIN!");
     }
-    else
+    else if(full==false)
     {
         stringstream player_id;
         player_id << user_id;
         player_id_str=player_id.str();
-        gout<< text(player_id_str) <<text(". player's turn!") << refresh;
+        gout<< text(player_id_str) <<text(". player's turn!");
     }
+    if(full==true)
+    {
+        gout << move_to(650, 115)<<text("The board is full!");
+    }
+    gout <<refresh;
 
 }
-
-
 
 void event_loop(vector<vector<FieldButton*>>& widgets)
 {
@@ -195,7 +219,7 @@ void event_loop(vector<vector<FieldButton*>>& widgets)
             {
                 FieldButton* current_button = widgets[i][j];
 
-                if (current_button->can_be_clicked() && current_button->is_clicked(ev))
+                if (current_button->can_be_clicked() && current_button->is_clicked(ev) && winner_user==0 && full==false)
                 {
 
                     current_button->set_user_id(user_id);
@@ -203,6 +227,7 @@ void event_loop(vector<vector<FieldButton*>>& widgets)
                     {
                         winner_user=user_id;
                     }
+                    full=is_full(widgets);
                     if(user_id==1)
                     {
                         user_id=2;
