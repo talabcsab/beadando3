@@ -10,9 +10,54 @@
 using namespace std;
 using namespace genv;
 
-
-
 int user_id=1;
+int winner_user=0;
+
+bool winning(vector<vector<FieldButton*>> &board)
+{
+    int counter=0;
+    for (int i=0; i<board.size(); i++)
+    {
+        counter=0;
+        for(int j=0; j<board[i].size(); j++)
+        {
+            FieldButton* current_button = board[i][j];
+            if(current_button->get_user_id()==user_id)
+            {
+                counter+=1;
+                if(counter==5)
+                {
+                    return true;
+                }
+            }
+            else counter=0;
+        }
+
+
+    }
+    return false;
+}
+
+
+
+
+void data_print()
+{
+    gout << move_to(630, 80) << color(255,0,0) << box(180, 100);
+    stringstream player_id;
+    player_id << user_id;
+    string player_id_str="";
+    player_id_str=player_id.str();
+    gout << move_to(650, 100) << color(0,0,255) << text(player_id_str);
+    if(winner_user!=0)
+    {
+        gout << text(". player WIN!") <<refresh;
+    }
+ else gout<<text(". player's turn!") << refresh;
+}
+
+
+
 void event_loop(vector<vector<FieldButton*>>& widgets)
 {
     event ev;
@@ -22,26 +67,30 @@ void event_loop(vector<vector<FieldButton*>>& widgets)
 
 
 
-        for (size_t i=0; i<widgets.size(); i++)
+        for (int i=0; i<widgets.size(); i++)
         {
             for(int j=0; j<widgets[i].size(); j++)
             {
-                    FieldButton* current_button = widgets[i][j];
+                FieldButton* current_button = widgets[i][j];
 
-                    if (current_button->can_be_clicked() && current_button->is_clicked(ev))
+                if (current_button->can_be_clicked() && current_button->is_clicked(ev))
+                {
+
+                    current_button->set_user_id(user_id);
+                    if(winning(widgets))
                     {
-
-                        current_button->set_user_id(user_id);
-                        if(user_id==1)
-                        {
-                            user_id=2;
-                        }
-                        else if(user_id==2)
-                        {
-                            user_id=1;
-                        }
-                        cout << "actual id: " <<user_id << ";" << widgets[i][j]->get_status() << endl;
+                        winner_user=user_id;
                     }
+                    if(user_id==1)
+                    {
+                        user_id=2;
+                    }
+                    else if(user_id==2)
+                    {
+                        user_id=1;
+                    }
+                    cout << "actual id: " <<user_id << ";" << widgets[i][j]->get_status() << endl;
+                }
 
 
 
@@ -50,10 +99,11 @@ void event_loop(vector<vector<FieldButton*>>& widgets)
             }
 
         }
-
+        data_print();
         gout << refresh;
     }
 }
+
 
 
 int main()

@@ -207,13 +207,11 @@
 	"string"
 	"iostream"
 
-1494604277 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
+1494609476 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
 	"graphics.hpp"
 	"widgets.hpp"
-	"counter.hpp"
 	<vector>
 	<iostream>
-	"menu.hpp"
 	<string>
 	<strstream>
 	<sstream>
@@ -237,14 +235,14 @@
 	"widgets.hpp"
 	"graphics.hpp"
 
-1494605926 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\field_button.cpp
+1494609256 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\field_button.cpp
 	"field_button.hpp"
 	<strstream>
 	<sstream>
 	<string>
 	<iostream>
 
-1494605959 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\field_button.hpp
+1494609256 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\field_button.hpp
 	"graphics.hpp"
 	"widgets.hpp"
 	"button.hpp"

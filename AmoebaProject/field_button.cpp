@@ -33,3 +33,8 @@ bool FieldButton::can_be_clicked() const
         }
     else return true;
 }
+
+int FieldButton::get_user_id()
+{
+    return user_id;
+}

@@ -17,6 +17,7 @@ public:
     virtual void set_user_id(int _user_id);
     string get_status() const;
     virtual bool can_be_clicked() const;
+    virtual int get_user_id();
 
 };
 
