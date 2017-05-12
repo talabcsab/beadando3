@@ -12,6 +12,8 @@ using namespace genv;
 
 int user_id=1;
 int winner_user=0;
+event ev;
+Button* cleaner_button = new Button (670, 130, 60, 40, "CLEAN!");
 
 bool winning(vector<vector<FieldButton*>> &board)
 {
@@ -124,34 +126,68 @@ bool winning(vector<vector<FieldButton*>> &board)
     return false;
 }
 
+void board_maker(vector<vector<FieldButton*>> &all)
+{
+    int board_size=20;
+    all.clear();
 
+    for( int j=0; j<board_size; j++)
+    {
+        vector<FieldButton*> f_vec;
+        for(int i=0; i<board_size; i++)
+        {
+            FieldButton* button  = new FieldButton(i*30,j*30);
+            f_vec.push_back(button);
+
+        }
+        all.push_back(f_vec);
+    }
+}
+
+
+void cleaner(vector<vector<FieldButton*>> &all)
+{
+    cleaner_button->rajzol(255, 0,0 );
+    if(cleaner_button->is_clicked(ev))
+    {
+        winner_user=0;
+        user_id=1;
+        board_maker(all);
+
+    }
+}
 
 
 void data_print()
 {
-    gout << move_to(630, 80) << color(255,0,0) << box(180, 100);
-    stringstream player_id;
-    player_id << user_id;
+    gout << move_to(630, 80) << color(255,0,0) << box(180, 50);
     string player_id_str="";
-    player_id_str=player_id.str();
-    gout << move_to(650, 100) << color(0,0,255) << text(player_id_str);
+    gout << move_to(650, 100) << color(0,0,255);
     if(winner_user!=0)
     {
-        gout << text(". player WIN!") <<refresh;
+        stringstream win_id;
+        player_id_str="";
+        win_id << winner_user;
+        player_id_str = win_id.str();
+        gout << text(player_id_str) <<text(". player WIN!") <<refresh;
     }
- else gout<<text(". player's turn!") << refresh;
+    else
+    {
+        stringstream player_id;
+        player_id << user_id;
+        player_id_str=player_id.str();
+        gout<< text(player_id_str) <<text(". player's turn!") << refresh;
+    }
+
 }
 
 
 
 void event_loop(vector<vector<FieldButton*>>& widgets)
 {
-    event ev;
 
     while(gin >> ev )
     {
-
-
 
         for (int i=0; i<widgets.size(); i++)
         {
@@ -175,16 +211,15 @@ void event_loop(vector<vector<FieldButton*>>& widgets)
                     {
                         user_id=1;
                     }
-                    cout << "actual id: " <<user_id << ";" << widgets[i][j]->get_status() << endl;
                 }
 
 
 
-//cout << "actual id befora drawing:" << user_id << endl;
                 current_button->rajzol();
             }
 
         }
+        cleaner(widgets);
         data_print();
         gout << refresh;
     }
@@ -196,21 +231,9 @@ int main()
 {
     gout.open(900,600);
     vector<Widget*> vec;
-
     vector<vector<FieldButton*>> all;
-    int board_size=20;
-    for( int j=0; j<board_size; j++)
-    {
-        vector<FieldButton*> f_vec;
-        for(int i=0; i<board_size; i++)
-        {
-            FieldButton* button  = new FieldButton(i*30,j*30);
-            f_vec.push_back(button);
-
-        }
-        all.push_back(f_vec);
-    }
-
+    board_maker(all);
+    cleaner(all);
     event_loop(all);
     return 0;
 }
