@@ -1,0 +1,178 @@
+# depslib dependency file v1.0
+1492681331 source:c:\users\talabér csaba\desktop\bead\graphicsproject\main.cpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"counter.hpp"
+	<vector>
+	<iostream>
+	"menu.hpp"
+	<string>
+	<strstream>
+	<sstream>
+	<fstream>
+
+1430022466 c:\users\talabér csaba\desktop\bead\graphicsproject\include\graphics.hpp
+	<string>
+
+1492337793 source:c:\users\talabér csaba\desktop\bead\graphicsproject\widgets.cpp
+	"widgets.hpp"
+	"graphics.hpp"
+
+1492599704 c:\users\talabér csaba\desktop\bead\graphicsproject\widgets.hpp
+	"graphics.hpp"
+	"string"
+	"iostream"
+
+1492505588 source:c:\users\talabér csaba\desktop\bead\graphicsproject\counter.cpp
+	"counter.hpp"
+	"graphics.hpp"
+	<strstream>
+	<sstream>
+	<string>
+	<iostream>
+
+1492599704 c:\users\talabér csaba\desktop\bead\graphicsproject\counter.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+
+1492599704 c:\users\talabér csaba\desktop\bead\graphicsproject\button.hpp
+	"graphics.hpp"
+	"string"
+
+1492505606 source:c:\users\talabér csaba\desktop\bead\graphicsproject\button.cpp
+	"graphics.hpp"
+	"string"
+	"button.hpp"
+
+1492683135 source:c:\users\talabér csaba\desktop\bead\graphicsproject\menu.cpp
+	"menu.hpp"
+	"graphics.hpp"
+	"button.hpp"
+	"string"
+
+1492682108 c:\users\talabér csaba\desktop\bead\graphicsproject\menu.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+	"string"
+	"vector"
+
+1492505606 source:c:\users\user\desktop\bead\graphicsproject\button.cpp
+	"graphics.hpp"
+	"string"
+	"button.hpp"
+
+1430022466 c:\users\user\desktop\bead\graphicsproject\include\graphics.hpp
+	<string>
+
+1492599704 c:\users\user\desktop\bead\graphicsproject\button.hpp
+	"graphics.hpp"
+	"string"
+
+1492505588 source:c:\users\user\desktop\bead\graphicsproject\counter.cpp
+	"counter.hpp"
+	"graphics.hpp"
+	<strstream>
+	<sstream>
+	<string>
+	<iostream>
+
+1492599704 c:\users\user\desktop\bead\graphicsproject\counter.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+
+1492599704 c:\users\user\desktop\bead\graphicsproject\widgets.hpp
+	"graphics.hpp"
+	"string"
+	"iostream"
+
+1492685748 source:c:\users\user\desktop\bead\graphicsproject\main.cpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"counter.hpp"
+	<vector>
+	<iostream>
+	"menu.hpp"
+	<string>
+	<strstream>
+	<sstream>
+	<fstream>
+
+1492682108 c:\users\user\desktop\bead\graphicsproject\menu.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+	"string"
+	"vector"
+
+1492686106 source:c:\users\user\desktop\bead\graphicsproject\menu.cpp
+	"menu.hpp"
+	"graphics.hpp"
+	"button.hpp"
+	"string"
+
+1492337793 source:c:\users\user\desktop\bead\graphicsproject\widgets.cpp
+	"widgets.hpp"
+	"graphics.hpp"
+
+1492505606 source:c:\users\talabér csaba\documents\bead\bead\graphicsproject\button.cpp
+	"graphics.hpp"
+	"string"
+	"button.hpp"
+
+1430022466 c:\users\talabér csaba\documents\bead\bead\graphicsproject\include\graphics.hpp
+	<string>
+
+1492599704 c:\users\talabér csaba\documents\bead\bead\graphicsproject\button.hpp
+	"graphics.hpp"
+	"string"
+
+1492505588 source:c:\users\talabér csaba\documents\bead\bead\graphicsproject\counter.cpp
+	"counter.hpp"
+	"graphics.hpp"
+	<strstream>
+	<sstream>
+	<string>
+	<iostream>
+
+1492599704 c:\users\talabér csaba\documents\bead\bead\graphicsproject\counter.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+
+1492599704 c:\users\talabér csaba\documents\bead\bead\graphicsproject\widgets.hpp
+	"graphics.hpp"
+	"string"
+	"iostream"
+
+1492718999 source:c:\users\talabér csaba\documents\bead\bead\graphicsproject\main.cpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"counter.hpp"
+	<vector>
+	<iostream>
+	"menu.hpp"
+	<string>
+	<strstream>
+	<sstream>
+	<fstream>
+
+1492705200 c:\users\talabér csaba\documents\bead\bead\graphicsproject\menu.hpp
+	"graphics.hpp"
+	"widgets.hpp"
+	"button.hpp"
+	"string"
+	"vector"
+
+1492718487 source:c:\users\talabér csaba\documents\bead\bead\graphicsproject\menu.cpp
+	"menu.hpp"
+	"graphics.hpp"
+	"button.hpp"
+	"string"
+
+1492337793 source:c:\users\talabér csaba\documents\bead\bead\graphicsproject\widgets.cpp
+	"widgets.hpp"
+	"graphics.hpp"
+
