@@ -15,22 +15,108 @@ int winner_user=0;
 
 bool winning(vector<vector<FieldButton*>> &board)
 {
-    int counter=0;
+    int row_counter=0;
+    int column_counter=0;
+    int diag1_counter=0;
+    int diag2_counter=0;
+    int diag3_counter=0;
+    int diag4_counter=0;
     for (int i=0; i<board.size(); i++)
     {
-        counter=0;
+        row_counter=0;
+        column_counter=0;
+        diag1_counter=0;
+        diag2_counter=0;
+        diag3_counter=0;
+        diag4_counter=0;
         for(int j=0; j<board[i].size(); j++)
         {
-            FieldButton* current_button = board[i][j];
-            if(current_button->get_user_id()==user_id)
+            FieldButton* current_row_button = board[i][j];
+            if(current_row_button->get_user_id()==user_id)
             {
-                counter+=1;
-                if(counter==5)
+                row_counter+=1;
+                if(row_counter==5)
                 {
                     return true;
                 }
             }
-            else counter=0;
+            else
+            {
+                row_counter=0;
+            }
+            FieldButton* current_column_button = board[j][i];
+            if(current_column_button->get_user_id()==user_id)
+            {
+                column_counter+=1;
+                if(column_counter==5)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+
+                column_counter=0;
+
+            }
+            int diag1_index = min(j+i, (int) board.size()-1);
+            FieldButton* current_diag1_button = board[j][diag1_index];
+            if(current_diag1_button->get_user_id()==user_id)
+            {
+                diag1_counter+=1;
+                if(diag1_counter==5)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                diag1_counter=0;
+            }
+            int diag2_index = max(j-i,0);
+            FieldButton* current_diag2_button = board[j][diag2_index];
+            if(current_diag2_button->get_user_id()==user_id)
+            {
+                diag2_counter+=1;
+                if(diag2_counter==5)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                diag2_counter=0;
+            }
+            int diag3_index_1=board.size()-1-j;
+            int diag3_index_2= min (i+j, (int) board.size()-1);
+            FieldButton* current_diag3_button = board[diag3_index_1][diag3_index_2];
+            if(current_diag3_button->get_user_id()==user_id)
+            {
+                diag3_counter+=1;
+                if(diag3_counter==5)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                diag3_counter=0;
+            }
+            int diag4_index_1 = max(j-i,0);
+            int diag4_index_2 = board.size()-1-j;
+            FieldButton* current_diag4_button = board[diag4_index_1][diag4_index_2];
+            if(current_diag4_button->get_user_id()==user_id)
+            {
+                diag4_counter+=1;
+                if(diag4_counter==5)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                diag4_counter=0;
+            }
         }
 
 
