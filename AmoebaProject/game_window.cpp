@@ -1,9 +1,24 @@
 #include "game_window.hpp"
+#include <vector>
+
+void GameWindow::menu()
+{
+    vector<string> options;
+    string single="Single player";
+    string multi="Multiplayer";
+    options.push_back(single);
+    options.push_back(multi);
+    mode_menu = new MenuWidget(650, 400, 150, 20, options);
+    mode_menu->rajzol();
+
+}
+
 
 
 void GameWindow::start()
 {
     gout.open(900,600);
+    menu();
     board_maker();
     cleaner();
     event_loop();
@@ -155,15 +170,17 @@ void GameWindow::cleaner()
     cleaner_button->rajzol(255, 0,0 );
     if(cleaner_button->is_clicked(ev))
     {
+        reset();
+    }
+}
+
+void GameWindow::reset()
+{
         winner_user=0;
         user_id=1;
         board_maker();
         full=false;
-
-    }
 }
-
-
 
 
 
@@ -456,16 +473,18 @@ void GameWindow::event_loop()
                 if (current_button->can_be_clicked() && current_button->is_clicked(ev) && winner_user==0 && full==false)
                 {
                     user_clicked(i,j);
-                    update_MI_matrix(i,j);
+                    if(singleplayer){
+                        update_MI_matrix(i,j);
 
-                    log(me, "me");
-                    log(opponent, "opponent");
-                    int m_i, m_j;
-                    get_next_MI_step(m_i, m_j);
-                    cout << "I: ( " << m_i <<" )" << "J: (" << m_j <<" )" << endl;
+                        log(me, "me");
+                        log(opponent, "opponent");
+                        int m_i, m_j;
+                        get_next_MI_step(m_i, m_j);
+                        cout << "I: ( " << m_i <<" )" << "J: (" << m_j <<" )" << endl;
 
-                    user_clicked(m_i, m_j);
-                    update_MI_matrix(m_i,m_j);
+                        user_clicked(m_i, m_j);
+                        update_MI_matrix(m_i,m_j);
+                    }
 
                 }
 
@@ -477,6 +496,27 @@ void GameWindow::event_loop()
         }
         cleaner();
         data_print();
+
+        if (ev.type == ev_mouse && ev.button==btn_left) {
+                mode_menu->set_active(ev.pos_x, ev.pos_y);
+            }
+
+            if (mode_menu->get_active())
+            {
+                mode_menu->kezel(ev);
+                bool new_singleplayer=mode_menu->get_selected_option()=="Single player";
+
+                if (singleplayer != new_singleplayer) {
+                    reset();
+                    singleplayer = new_singleplayer;
+                }
+
+            }
+
+
+            mode_menu->rajzol();
+
+
         gout << refresh;
     }
 }
@@ -502,8 +542,5 @@ void GameWindow::user_clicked(int i, int j)
 
 GameWindow::GameWindow()
 {
-    winner_user=0;
-    user_id=1;
-    board_maker();
-    full=false;
+    reset();
 }

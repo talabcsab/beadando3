@@ -10,11 +10,9 @@ using namespace std;
 
 class Button: public Widget {
 protected:
-        string title;
-
-
 
 public:
+    string title;
 
     Button(int bx, int by, int bw, int bh, string btitle);
     virtual bool is_contain(int mx, int my) const;

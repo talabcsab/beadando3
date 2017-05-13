@@ -11,7 +11,7 @@
 #include <sstream>
 #include <fstream>
 #include "field_button.hpp"
-
+#include "menu.hpp"
 
 
 using namespace std;
@@ -23,10 +23,11 @@ private:
     virtual void event_loop();
     int user_id=1;
     int winner_user=0;
+    bool singleplayer=true;
     bool full=false;
     int jackpot=4;
     event ev;
-    Button* cleaner_button = new Button (685, 130, 70, 30, "CLEAN!");
+    Button* cleaner_button = new Button (675, 130, 90, 30, "Restart");
     virtual bool winning();
     virtual void board_maker();
     virtual void cleaner();
@@ -34,6 +35,9 @@ private:
     virtual void data_print();
     vector<vector<FieldButton*>> board;
     virtual void user_clicked(int i, int j);
+    virtual void menu();
+    MenuWidget* mode_menu;
+    virtual void reset();
 
     vector<vector<int>> opponent;
     vector<vector<int>> me;
