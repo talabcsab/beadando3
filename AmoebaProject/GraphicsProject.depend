@@ -176,7 +176,7 @@
 	"widgets.hpp"
 	"graphics.hpp"
 
-1494603865 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\button.cpp
+1494704646 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\button.cpp
 	"graphics.hpp"
 	"string"
 	"button.hpp"
@@ -207,16 +207,7 @@
 	"string"
 	"iostream"
 
-1494631189 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
-	"graphics.hpp"
-	"widgets.hpp"
-	<vector>
-	<iostream>
-	<string>
-	<strstream>
-	<sstream>
-	<fstream>
-	"field_button.hpp"
+1494677355 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\main.cpp
 	"game_window.hpp"
 
 1494676722 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\menu.hpp
@@ -260,7 +251,7 @@
 	"field_button.hpp"
 	"menu.hpp"
 
-1494676985 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.cpp
+1494704818 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.cpp
 	"game_window.hpp"
 	<vector>
 

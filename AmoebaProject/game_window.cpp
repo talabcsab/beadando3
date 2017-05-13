@@ -202,7 +202,7 @@ bool GameWindow::is_full()
 }
 void GameWindow::data_print()
 {
-    gout << move_to(630, 80) << color(255,0,0) << box(180, 50);
+    gout << move_to(630, 80) << color(176,224,230) << box(180, 50);
     string player_id_str="";
     gout << move_to(650, 100) << color(0,0,255);
     if(winner_user!=0)

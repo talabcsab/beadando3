@@ -30,7 +30,7 @@ using namespace genv;
     void Button::rajzol(int br, int bg, int bb) const {
         gout << move_to(x, y) << color(br, bg, bb) << box(size_x, size_y)
          << move_to(x+1, y+1) << color(255,250,250) << box(size_x-2, size_y-2)
-         << move_to(x+11, y+18)<< color (0,0,255)<< text(title);
+         << move_to(x+11, y+20)<< color (0,0,255)<< text(title);
     }
     void Button::moving(int newx, int newy)
     {
