@@ -248,7 +248,7 @@
 	"widgets.hpp"
 	"button.hpp"
 
-1494631374 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.hpp
+1494670178 c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.hpp
 	"graphics.hpp"
 	"widgets.hpp"
 	<vector>
@@ -258,4 +258,7 @@
 	<sstream>
 	<fstream>
 	"field_button.hpp"
+
+1494672935 source:c:\users\talabér csaba\documents\beadando3\beadando3\amoebaproject\game_window.cpp
+	"game_window.hpp"
 

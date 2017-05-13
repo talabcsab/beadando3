@@ -1,15 +1,11 @@
 #include "game_window.hpp"
 
+
 void GameWindow::start()
 {
-        cout << "itt!";
-
     gout.open(900,600);
-    cout << "itt1!";
     board_maker();
-    cout << "itt2!";
     cleaner();
-    cout << "itt3!";
     event_loop();
 }
 bool GameWindow::winning()
@@ -36,6 +32,7 @@ bool GameWindow::winning()
                 row_counter+=1;
                 if(row_counter==5)
                 {
+                    cout << "sor nyert" << endl;
                     return true;
                 }
             }
@@ -49,6 +46,7 @@ bool GameWindow::winning()
                 column_counter+=1;
                 if(column_counter==5)
                 {
+                    cout << "oszlop nyert";
                     return true;
                 }
             }
@@ -65,6 +63,7 @@ bool GameWindow::winning()
                 diag1_counter+=1;
                 if(diag1_counter==5)
                 {
+                    cout << "diag1 nyert"<< endl;
                     return true;
                 }
             }
@@ -79,6 +78,8 @@ bool GameWindow::winning()
                 diag2_counter+=1;
                 if(diag2_counter==5)
                 {
+                    cout << "diag2 nyert"<< endl;
+
                     return true;
                 }
             }
@@ -94,6 +95,8 @@ bool GameWindow::winning()
                 diag3_counter+=1;
                 if(diag3_counter==5)
                 {
+                cout << "diag3 nyert"<< endl;
+
                     return true;
                 }
             }
@@ -109,6 +112,8 @@ bool GameWindow::winning()
                 diag4_counter+=1;
                 if(diag4_counter==5)
                 {
+                    cout << "diag4 nyert"<< endl;
+
                     return true;
                 }
             }
@@ -127,6 +132,8 @@ void GameWindow::board_maker()
 {
     int board_size=20;
     board.clear();
+    me.clear();
+    opponent.clear();
 
     for( int j=0; j<board_size; j++)
     {
@@ -135,9 +142,10 @@ void GameWindow::board_maker()
         {
             FieldButton* button  = new FieldButton(i*30,j*30);
             f_vec.push_back(button);
-
         }
-       board.push_back(f_vec);
+        board.push_back(f_vec);
+        me.push_back(vector<int>(board_size));
+        opponent.push_back(vector<int>(board_size));
     }
 }
 
@@ -203,6 +211,237 @@ void GameWindow::data_print()
 
 }
 
+int GameWindow::valueOnPos(int si, int sj, int player)
+{
+
+
+    if (!board[si][sj]->can_be_clicked())
+    {
+        return 0;
+    }
+
+    int startX = max(si-4,0);
+    int endX = min(si+4,(int)board.size()-1);
+    int startY = max(sj-4,0);
+    int endY = min(sj+4,(int)board.size()-1);
+
+    int res = 0;
+
+    int counter = 0;
+    bool valid=false;
+    for (int i = si+1; i<=endX; i++)
+    {
+        if((board[i][sj]->get_user_id() == player))
+        {
+            counter += 1;
+        }
+        else
+        {
+            valid=board[i][sj]->can_be_clicked();
+            break;
+        }
+    }
+
+
+    for (int i = si-1; i>=startX; i--)
+    {
+        if((board[i][sj]->get_user_id() == player))
+        {
+            counter += 1;
+        }
+        else
+        {
+            valid=board[i][sj]->can_be_clicked() || valid;
+            break;
+        }
+    }
+
+
+    res = (counter > res && valid || counter==jackpot) ? counter : res;
+
+    counter=0;
+    valid=false;
+
+    for (int j = sj+1; j<=endY; j++)
+    {
+        if((board[si][j]->get_user_id() == player))
+        {
+            counter += 1;
+        }
+        else
+        {
+            valid=board[si][j]->can_be_clicked();
+            break;
+        }
+    }
+
+
+    for (int j = sj-1; j>=startY; j--)
+    {
+        if((board[si][j]->get_user_id() == player ))
+        {
+            counter += 1;
+        }
+        else
+        {
+            valid=board[si][j]->can_be_clicked() || valid;
+            break;
+        }
+    }
+
+    res = (counter > res && valid || counter==jackpot) ? counter : res;
+
+    counter=0;
+    valid=false;
+
+    for (int z=1; z<5; z++)
+    {
+        int dj = min(sj+z, (int) board.size()-1);
+        int di = min(si+z, (int) board.size()-1);
+        if(board[di][dj]->get_user_id() == player)
+        {
+            counter+=1;
+        }
+        else
+        {
+
+            valid=board[di][dj]->can_be_clicked() || valid;
+            break;
+
+        }
+    }
+
+    for (int z=1; z<5; z++)
+    {
+        int dj = max(sj-z, 0);
+        int di = max(si-z, 0);
+        if(board[di][dj]->get_user_id() == player)
+        {
+            counter+=1;
+        }
+        else
+        {
+
+            valid=board[di][dj]->can_be_clicked() || valid;
+            break;
+
+        }
+    }
+
+    res = (counter > res && valid || counter==jackpot) ? counter : res;
+
+    counter=0;
+    valid=false;
+
+    for (int z=1; z<5; z++)
+    {
+        int di = max(si-z, 0);
+        int dj = min(sj+z, (int) board.size()-1);
+        if(board[di][dj]->get_user_id() == player)
+        {
+            counter+=1;
+        }
+        else
+        {
+
+            valid=board[di][dj]->can_be_clicked() || valid;
+            break;
+
+        }
+    }
+
+    for (int z=1; z<5; z++)
+    {
+        int di = min(si+z, (int) board.size()-1);
+        int dj = max(sj-z, 0);
+        if(board[di][dj]->get_user_id() == player)
+        {
+            counter+=1;
+        }
+        else
+        {
+
+            valid=board[di][dj]->can_be_clicked() || valid;
+            break;
+
+        }
+    }
+
+    res = (counter > res && valid || counter==jackpot) ? counter : res;
+
+    return res;
+
+
+}
+
+void GameWindow::update_MI_matrix(int si, int sj)
+{
+    int startX = max(si-4,0);
+    int endX = min(si+5,(int)board.size());
+    int startY = max(sj-4,0);
+    int endY = min(sj+5,(int)board.size());
+
+    for (int i = startX; i<endX; i++)
+    {
+        for (int j = startY; j<endY; j++)
+        {
+            me[i][j] = valueOnPos(i,j,2);
+            opponent[i][j] = valueOnPos(i,j,1);
+        }
+    }
+}
+
+void GameWindow::log(vector<vector<int>>& m, string start)
+{
+    cout << start << endl;
+
+    for (int i = 0; i<m.size(); i++)
+    {
+        for (int j = 0; j<m[i].size(); j++)
+        {
+            cout << m[i][j] << ", ";
+        }
+        cout << endl;
+    }
+
+    cout << endl;
+    cout << endl;
+
+}
+
+void GameWindow::get_next_MI_step(int& r_i, int& r_j)
+{
+
+    int max_res=0;
+    for(int i=0; i<opponent.size(); i++)
+    {
+        for(int j=0; j<opponent[i].size(); j++)
+        {
+            int res=opponent[i][j];
+            if(res>max_res)
+            {
+                max_res=res;
+                r_i=i;
+                r_j=j;
+            }
+        }
+    }
+    for(int i=0; i<me.size(); i++)
+    {
+        for(int j=0; j<me[i].size(); j++)
+        {
+            int res=me[i][j];
+            if(res>=max_res)
+            {
+                max_res=res;
+                r_i=i;
+                r_j=j;
+            }
+        }
+    }
+}
+
+
 void GameWindow::event_loop()
 {
     while(gin >> ev )
@@ -216,21 +455,18 @@ void GameWindow::event_loop()
 
                 if (current_button->can_be_clicked() && current_button->is_clicked(ev) && winner_user==0 && full==false)
                 {
+                    user_clicked(i,j);
+                    update_MI_matrix(i,j);
 
-                    current_button->set_user_id(user_id);
-                    if(winning())
-                    {
-                        winner_user=user_id;
-                    }
-                    full=is_full();
-                    if(user_id==1)
-                    {
-                        user_id=2;
-                    }
-                    else if(user_id==2)
-                    {
-                        user_id=1;
-                    }
+                    log(me, "me");
+                    log(opponent, "opponent");
+                    int m_i, m_j;
+                    get_next_MI_step(m_i, m_j);
+                    cout << "I: ( " << m_i <<" )" << "J: (" << m_j <<" )" << endl;
+
+                    user_clicked(m_i, m_j);
+                    update_MI_matrix(m_i,m_j);
+
                 }
 
 
@@ -245,10 +481,29 @@ void GameWindow::event_loop()
     }
 }
 
+void GameWindow::user_clicked(int i, int j)
+{
+    FieldButton* current_button = board[i][j];
+                 current_button->set_user_id(user_id);
+    if(winning())
+    {
+        winner_user=user_id;
+    }
+    full=is_full();
+    if(user_id==1)
+    {
+        user_id=2;
+    }
+    else if(user_id==2)
+    {
+        user_id=1;
+    }
+}
+
 GameWindow::GameWindow()
 {
-     winner_user=0;
-        user_id=1;
-        board_maker();
-        full=false;
+    winner_user=0;
+    user_id=1;
+    board_maker();
+    full=false;
 }

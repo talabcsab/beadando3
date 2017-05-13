@@ -24,6 +24,7 @@ private:
     int user_id=1;
     int winner_user=0;
     bool full=false;
+    int jackpot=4;
     event ev;
     Button* cleaner_button = new Button (685, 130, 70, 30, "CLEAN!");
     virtual bool winning();
@@ -32,6 +33,16 @@ private:
     virtual bool is_full();
     virtual void data_print();
     vector<vector<FieldButton*>> board;
+    virtual void user_clicked(int i, int j);
+
+    vector<vector<int>> opponent;
+    vector<vector<int>> me;
+    void update_MI_matrix(int i, int j);
+    void get_next_MI_step(int& i, int& j);
+    int valueOnPos(int i, int j, int player);
+    void log(vector<vector<int>>& m, string start);
+    void zero(vector<vector<int>>& m);
+
 public:
     GameWindow();
     virtual void start();
