@@ -22,10 +22,10 @@ void GameWindow::start()
     gout.open(900,600);
     menu();
     board_maker();
-    cleaner();
+    reset();
     event_loop();
 
-    ///Ezen fuggveny hozza letre az ablakot, meghivja a palyat keszito fv-t, a cleaner-t, mely a kulonbozo ID-kat reseteli, valamint az eventloopot.
+///Itt (1) hozzuk letre az ablakot, (2) elokeszitjuk a jatekteret, (3) beallitjuk a kezdoallapotot, valamint (4) elindatjuk az esemenykezelest.
 }
 bool GameWindow::winning()
 {
@@ -202,7 +202,8 @@ bool GameWindow::is_full()
 
     }
     return true;
-///Vizsgalja, hogy van-e meg szabad(nulla erteku) mezo.
+///Vizsgalja, hogy megtelt-e a palya, vagyis hogy van-e meg szabad(nulla erteku) mezo
+
 }
 void GameWindow::data_print()
 {
@@ -410,7 +411,11 @@ void GameWindow::update_MI_matrix(int si, int sj)
             opponent[i][j] = valueOnPos(i,j,1);
         }
     }
-///Frissiti a gepi jatekos matrixat a valueOnPos fv altal szamitott ertekekkel.
+///Frissiti a mindket jatekos matrixat a valueOnPos fv altal szamitott ertekekkel.
+/// A me mátrix a board mátrixszal azonos dimenziójú, a gépi játékos lehetséges lépéseihez rendelt értékeket tartalmazza (körönként frissítjük).
+/// Minél magasabb értékû egy elem ebben a mátrixban, annál közelebb jut a gépi játékos a nyeréshez.
+///Az opponent mátrix nagyon hasonló, viszont az ellenfél ("ember játékos") lépseinek értékeit tartalmazza
+/// (vagyis minél magasabb értékû egy mezõ, annál közelebb kerül vele a játékos a nyeréshez).
 }
 
 void GameWindow::log(vector<vector<int>>& m, string start)
@@ -464,6 +469,11 @@ void GameWindow::get_next_MI_step(int& r_i, int& r_j)
         }
     }
     ///Vizsgalja a legkedvezobb lepes erdekeben a mezoket a gepi jatekos szamara.
+    ///A gépi játékos következõ lépésének pozícióját alapvetõen a "me" legmagasabb értékû mezõjének (i,j) pozíciója adja
+    ///(hiszen ez viszi õt legközelebb a nyeréshez).
+    ///Ellenben ha az ellenfél közelebb kerülhet a nyeréshez, akkor õt akadályozza
+    /// (vagyis ha az opponent mátrixban van nagyobb értékû mezõ, mint a me mátrixban,
+    ///akkor ennek a mezõnek az (i,j) pozíciója adja a gépi játékos következõ lépését).
 }
 
 
