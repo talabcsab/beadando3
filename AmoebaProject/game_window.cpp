@@ -11,6 +11,8 @@ void GameWindow::menu()
     mode_menu = new MenuWidget(650, 400, 150, 20, options);
     mode_menu->rajzol();
 
+    ///Letrehozza az ablak jobb oldalan talalhato menut, melynek ket opcioja a single és a multiplayer mode.
+
 }
 
 
@@ -22,6 +24,8 @@ void GameWindow::start()
     board_maker();
     cleaner();
     event_loop();
+
+    ///Ezen fuggveny hozza letre az ablakot, meghivja a palyat keszito fv-t, a cleaner-t, mely a kulonbozo ID-kat reseteli, valamint az eventloopot.
 }
 bool GameWindow::winning()
 {
@@ -47,7 +51,6 @@ bool GameWindow::winning()
                 row_counter+=1;
                 if(row_counter==5)
                 {
-                    cout << "sor nyert" << endl;
                     return true;
                 }
             }
@@ -61,7 +64,6 @@ bool GameWindow::winning()
                 column_counter+=1;
                 if(column_counter==5)
                 {
-                    cout << "oszlop nyert";
                     return true;
                 }
             }
@@ -78,7 +80,6 @@ bool GameWindow::winning()
                 diag1_counter+=1;
                 if(diag1_counter==5)
                 {
-                    cout << "diag1 nyert"<< endl;
                     return true;
                 }
             }
@@ -93,7 +94,6 @@ bool GameWindow::winning()
                 diag2_counter+=1;
                 if(diag2_counter==5)
                 {
-                    cout << "diag2 nyert"<< endl;
 
                     return true;
                 }
@@ -110,7 +110,6 @@ bool GameWindow::winning()
                 diag3_counter+=1;
                 if(diag3_counter==5)
                 {
-                cout << "diag3 nyert"<< endl;
 
                     return true;
                 }
@@ -127,7 +126,6 @@ bool GameWindow::winning()
                 diag4_counter+=1;
                 if(diag4_counter==5)
                 {
-                    cout << "diag4 nyert"<< endl;
 
                     return true;
                 }
@@ -141,6 +139,7 @@ bool GameWindow::winning()
 
     }
     return false;
+///Vizsgalja, hogy nyert-e valaki. Ot azonos user ID-val rendelkezo mezot keres, vizszintesen, fuggolegesen és atlosan is.
 }
 
 void GameWindow::board_maker()
@@ -162,6 +161,8 @@ void GameWindow::board_maker()
         me.push_back(vector<int>(board_size));
         opponent.push_back(vector<int>(board_size));
     }
+/// Adott a boardsize valtozo, melyet itt deklaralok a konnyu modositas erdekeben, majd letrehozok egy board_size x board_size meretu palyat
+/// A palya FieldButton tipusu widgetekbol all.
 }
 
 
@@ -172,6 +173,7 @@ void GameWindow::cleaner()
     {
         reset();
     }
+///Vizsgalja, hogy a gombot megnyomjuk-e, majd ha igen, meghivja a lentebb deklaralt reset fv-t
 }
 
 void GameWindow::reset()
@@ -180,6 +182,8 @@ void GameWindow::reset()
         user_id=1;
         board_maker();
         full=false;
+
+///Mindent visszaallit kezdeti ertekre, majd ujrarajzoltatja a palyat.
 }
 
 
@@ -198,7 +202,7 @@ bool GameWindow::is_full()
 
     }
     return true;
-
+///Vizsgalja, hogy van-e meg szabad(nulla erteku) mezo.
 }
 void GameWindow::data_print()
 {
@@ -225,7 +229,7 @@ void GameWindow::data_print()
         gout << move_to(650, 115)<<text("The board is full!");
     }
     gout <<refresh;
-
+///Kiirja a soros jatekos szamat, ill. a nyertest es azt is tudatja, ha a palya megtelt.
 }
 
 int GameWindow::valueOnPos(int si, int sj, int player)
@@ -388,7 +392,7 @@ int GameWindow::valueOnPos(int si, int sj, int player)
 
     return res;
 
-
+///Erteket ad a kulonbozo mezoknak, annak fuggvenyeben, hogy az adott jatekosra nezve hany mezovel lenne szomszedos a kijelolheto mezok egyike. Nezi a a palya szelessegenek kozelseget is.
 }
 
 void GameWindow::update_MI_matrix(int si, int sj)
@@ -406,11 +410,12 @@ void GameWindow::update_MI_matrix(int si, int sj)
             opponent[i][j] = valueOnPos(i,j,1);
         }
     }
+///Frissiti a gepi jatekos matrixat a valueOnPos fv altal szamitott ertekekkel.
 }
 
 void GameWindow::log(vector<vector<int>>& m, string start)
 {
-    cout << start << endl;
+    /*cout << start << endl;
 
     for (int i = 0; i<m.size(); i++)
     {
@@ -422,7 +427,9 @@ void GameWindow::log(vector<vector<int>>& m, string start)
     }
 
     cout << endl;
-    cout << endl;
+    cout << endl;*/
+
+    ///Ezt a fuggvenyt a valueOnPos es az update_MI_matrix megirasahoz hasznaltam fel, igy tudtam ellenorizni az adatokat. Azért van kikommentezve, hogy ne irjon mar a konzolra.
 
 }
 
@@ -456,6 +463,7 @@ void GameWindow::get_next_MI_step(int& r_i, int& r_j)
             }
         }
     }
+    ///Vizsgalja a legkedvezobb lepes erdekeben a mezoket a gepi jatekos szamara.
 }
 
 
@@ -468,7 +476,7 @@ void GameWindow::event_loop()
         {
             for(int j=0; j<board[i].size(); j++)
             {
-                FieldButton* current_button = board[i][j];
+                FieldButton* current_button = board[i][j]; ///A tabla [i][j] elemet tekinti aktualis gomban a vizsgalat soran.
 
                 if (current_button->can_be_clicked() && current_button->is_clicked(ev) && winner_user==0 && full==false)
                 {
@@ -480,22 +488,23 @@ void GameWindow::event_loop()
                         log(opponent, "opponent");
                         int m_i, m_j;
                         get_next_MI_step(m_i, m_j);
-                        cout << "I: ( " << m_i <<" )" << "J: (" << m_j <<" )" << endl;
 
                         user_clicked(m_i, m_j);
                         update_MI_matrix(m_i,m_j);
                     }
-
+///Single player eseten a meghivja az MI-hez tartozo fv-eket, igy lep a gep is. Ha multi van, csak a klikkeles van, egymas utan a ket jatekos.
                 }
 
 
 
                 current_button->rajzol();
+                ///X-et, ill. O-t rajzol az adott gombba az aktualis jatekso fuggvenyeben.
             }
 
         }
         cleaner();
         data_print();
+        ///Ha restartolunk meghivodik a cleaner, ill. frissiti az aktualis jatekos sorszamat/kiirja a nyertest.
 
         if (ev.type == ev_mouse && ev.button==btn_left) {
                 mode_menu->set_active(ev.pos_x, ev.pos_y);
@@ -512,7 +521,7 @@ void GameWindow::event_loop()
                 }
 
             }
-
+///A menubol kivalasztott opcio alapjan inditja, ujrainditja a jatekot.
 
             mode_menu->rajzol();
 
@@ -538,6 +547,7 @@ void GameWindow::user_clicked(int i, int j)
     {
         user_id=1;
     }
+///klikkeles utan jatekost valt, vizsgalja, hogy valamilyen modon vegetert-e a jatek.
 }
 
 GameWindow::GameWindow()
